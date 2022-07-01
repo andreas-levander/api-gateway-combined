@@ -1,0 +1,85 @@
+{
+  "$schema": "https://www.krakend.io/schema/v3.json",
+  "version": 3,
+  "name": "KrakenD - API Gateway test",
+  "timeout": "3000ms",
+  "cache_ttl": "300s",
+  "output_encoding": "json",
+  "tls": {
+    "public_key": "/etc/krakend/server-cert.pem",
+    "private_key": "/etc/krakend/server-key.pem",
+    "disabled": true
+  },
+  "extra_config": {
+    "security/cors": {
+      "allow_origins": ["*"],
+      "expose_headers": ["Content-Length"],
+      "max_age": "12h",
+      "allow_methods": ["GET", "HEAD", "POST"],
+      "allow_headers": ["*"]
+    },
+    "telemetry/influx": {
+      "address": "http://influxdb:8086",
+      "ttl": "25s",
+      "buffer_size": 0,
+      "db": "krakend",
+      "username": "krakend-dev",
+      "password": "pas5w0rd"
+    },
+    "telemetry/metrics": {
+      "collection_time": "30s",
+      "proxy_disabled": false,
+      "router_disabled": false,
+      "backend_disabled": false,
+      "endpoint_disabled": false,
+      "listen_address": ":8090"
+    },
+    "telemetry/opencensus": {
+      "sample_rate": 100,
+      "reporting_period": 1,
+      "exporters": {
+        "jaeger": {
+          "endpoint": "http://jaeger:14268/api/traces",
+          "service_name": "krakend"
+        }
+      }
+    }
+  },
+  "endpoints": [
+    {
+      "endpoint": "/v1/test",
+      "backend": [
+        {
+          "url_pattern": "/api/test",
+          "method": "GET",
+          "host": ["http://deno-backend:3000"]
+        }
+      ],
+      "input_headers": ["*"],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "EdDSA",
+          "jwk_url": "http://authserver:4000/v1/api/public/validate",
+          "cache": true,
+          "disable_jwk_security": true,
+          "roles_key": "roles",
+          "roles": ["admin"]
+        }
+      }
+    },
+    {
+      "endpoint": "/v1/auth",
+      "method": "POST",
+      "output_encoding": "no-op",
+      "backend": [
+        {
+          "url_pattern": "/v1/api/public/login",
+          "method": "POST",
+          "host": ["http://authserver:4000"],
+          "encoding": "json"
+        }
+      ],
+      "input_headers": ["*"]
+    }
+  ]
+}

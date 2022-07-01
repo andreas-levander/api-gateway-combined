@@ -1,0 +1,78 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./mongodb/data:/data/db
+      - ./mongodb/docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    ports:
+      - "27017:27017"
+    networks:
+      - authserver
+  authserver:
+    build: ./authserver
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_URI=mongodb://testuser:password@mongodb:27017/authdb
+    volumes:
+      - ./logs:/app/logs
+    ports:
+      - 4000:4000
+    networks:
+      - authserver
+      - apigateway
+  krakend:
+    image: devopsfaith/krakend
+    depends_on:
+      - influxdb
+    ports:
+      - "8080:8080"
+      - "8090:8090"
+    volumes:
+      - ./krakend/krakend/config:/etc/krakend
+    command: ["run", "-d", "-c", "/etc/krakend/krakend.json"]
+    networks:
+      - apigateway
+  influxdb:
+    image: influxdb:1.8
+    environment:
+      - "INFLUXDB_DB=krakend"
+      - "INFLUXDB_USER=krakend-dev"
+      - "INFLUXDB_USER_PASSWORD=pas5w0rd"
+      - "INFLUXDB_ADMIN_USER=admin"
+      - "INFLUXDB_ADMIN_PASSWORD=supersecretpassword"
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./krakend/influxdb/data:/var/lib/influxdb
+    networks:
+      - apigateway
+  grafana:
+    build: ./krakend/grafana
+    depends_on:
+      - influxdb
+    ports:
+      - "3001:3000"
+    networks:
+      - apigateway
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    depends_on:
+      - krakend
+    ports:
+      - "16686:16686"
+      - "14268:14268"
+    networks:
+      - apigateway
+
+networks:
+  authserver:
+    driver: bridge
+  apigateway:
+    driver: bridge

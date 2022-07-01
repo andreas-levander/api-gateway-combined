@@ -1,0 +1,13 @@
+data
+
+node_modules
+
+.env
+
+.DS_Store
+
+added-users.json
+
+logs
+
+influxdb
