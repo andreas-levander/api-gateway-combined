@@ -2,4 +2,4 @@
 
 Krakend Api Gateway with authentication server
 
-[Authserver docs](/docs/authserver/authserver_README.md)
+[Authserver docs](/docs/authserver/authserver.md)
