@@ -23,8 +23,9 @@ Authentication server created with Node.js and MongoDB to be used for Role Based
 
 ### Using Docker
 
-Quick start using docker  
-`docker compose up`
+Quick start using docker
+
+```docker compose up```
 
 #### Requirements
 
@@ -53,9 +54,9 @@ Todo
 
 ### Public
 
-- [Login](/endpoints/login.md) : `POST /v1/api/public/login`
-- [Validate](/endpoints/validate.md) : `GET /v1/api/public/validate`
+- [Login](/docs/authserver/endpoints/login.md) : `POST /v1/api/public/login`
+- [Validate](/docs/authserver/endpoints/validate.md) : `GET /v1/api/public/validate`
 
 ### Private
 
-- [Create User](/endpoints/createuser.md) : `POST /v1/api/admin/createuser`
+- [Create User](/docs/authserver/endpoints/createuser.md) : `POST /v1/api/admin/createuser`
