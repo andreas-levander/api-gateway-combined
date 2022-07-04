@@ -25,7 +25,9 @@ Authentication server created with Node.js and MongoDB to be used for Role Based
 
 Quick start using docker
 
-```docker compose up```
+```
+docker compose up
+```
 
 #### Requirements
 
