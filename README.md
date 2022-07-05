@@ -5,7 +5,10 @@ Krakend Api Gateway with authentication server
 [Authserver docs](/docs/authserver/authserver.md)  
 [Krakend docs](https://www.krakend.io/docs/overview/)
 
+## Table of content
+
 - [Api Gateway](#api-gateway)
+  - [Table of content](#table-of-content)
   - [Setup](#setup)
     - [Requirements](#requirements)
     - [Setting up mongodb for authserver](#setting-up-mongodb-for-authserver)
