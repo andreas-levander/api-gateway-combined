@@ -5,9 +5,15 @@ Krakend Api Gateway with authentication server
 [Authserver docs](/docs/authserver/authserver.md)  
 [Krakend docs](https://www.krakend.io/docs/overview/)
 
-## Setup
+- [Api Gateway](#api-gateway)
+  - [Setup](#setup)
+    - [Requirements](#requirements)
+    - [Setting up mongodb for authserver](#setting-up-mongodb-for-authserver)
+  - [Configuration](#configuration)
+    - [KrakenD](#krakend)
+    - [Authserver](#authserver)
 
-### Using Docker
+## Setup
 
 Quick start using docker
 
@@ -15,12 +21,12 @@ Quick start using docker
 docker compose up
 ```
 
-#### Requirements
+### Requirements
 
 - Docker
 - Docker compose
 
-#### Setting up mongodb for authserver
+### Setting up mongodb for authserver
 
 Initialization script location: `/mongodb/docker-entrypoint-initdb.d`
 
