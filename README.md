@@ -2,7 +2,7 @@
 
 Krakend Api Gateway with authentication server
 
-[Authserver docs](/docs/authserver/authserver.md)
+[Authserver docs](/docs/authserver/authserver.md)  
 [Krakend docs](https://www.krakend.io/docs/overview/)
 
 ## Setup

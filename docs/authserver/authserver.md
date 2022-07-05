@@ -62,3 +62,4 @@ Todo
 ### Private
 
 - [Create User](/docs/authserver/endpoints/createuser.md) : `POST /v1/api/admin/createuser`
+- [Remove User](/docs/authserver/endpoints/removeuser.md) : `POST /v1/api/admin/removeuser` 
