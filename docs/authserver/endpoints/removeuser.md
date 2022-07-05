@@ -59,21 +59,6 @@ Request body should have username in json format
 ```
 
 
-
-### If user already exists
-
-**Code** : `400 Bad Request`
-
-**Response** :
-
-```json
-{
-    "error": "username must be unique"
-}
-```
-
-
-
 ### If input validation fails
 
 **Code** : `400 Bad Request`
