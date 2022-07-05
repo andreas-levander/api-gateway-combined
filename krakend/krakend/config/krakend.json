@@ -71,15 +71,27 @@
       "endpoint": "/v1/auth",
       "method": "POST",
       "output_encoding": "no-op",
+      "input_query_strings": ["username", "password"],
       "backend": [
         {
           "url_pattern": "/v1/api/public/login",
           "method": "POST",
           "host": ["http://authserver:4000"],
-          "encoding": "json"
+          "encoding": "json",
+          "extra_config": {
+            "qos/ratelimit/proxy": {
+              "max_rate": 10,
+              "capacity": 10
+            }
+          }
         }
       ],
-      "input_headers": ["*"]
+      "input_headers": ["Content-Type", "Content-Length"],
+      "extra_config": {
+        "qos/ratelimit/router": {
+          "max_rate": 10
+        }
+      }
     },
     {
       "endpoint": "/v1/admin/createuser",
