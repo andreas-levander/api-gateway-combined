@@ -31,11 +31,11 @@ docker compose up
 
 Initialization script location: `/mongodb/docker-entrypoint-initdb.d`
 
-When starting MongoDB for the first time it will run the initialization script if it is mounted in the mongodb container as it is done in the docker compose.yaml.
+When starting MongoDB for the first time it will run the initialization script if it is mounted in the mongodb container as done by default in the docker [compose](compose.yaml).
 
 You should configure the script with the username and password used by the authserver.
 
-Also you should change the root username and password in the compose.yaml.
+Also you should change the root username and password in the [compose](compose.yaml).
 
 ## Configuration
 

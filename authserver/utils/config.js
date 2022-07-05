@@ -11,6 +11,6 @@ const MONGODB_URI =
 
 const USERNAME_MINLENGTH = process.env.USERNAME_MINLENGTH || 5;
 
-const KEY_GEN_ALG = "EdDSA";
+const KEY_GEN_ALG = process.env.KEY_GEN_ALG || "EdDSA";
 
 export { MONGODB_URI, PORT, USERNAME_MINLENGTH, KEY_GEN_ALG };
