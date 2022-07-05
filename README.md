@@ -51,6 +51,6 @@ If you do the recommended way you need to rebuild the image every time you chang
 
 ### Authserver
 
-[Configuring authserver](/docs/authserver/authserver.md)
+[Configuring authserver](/docs/authserver/authserver.md#configuration)
 
 Todo
