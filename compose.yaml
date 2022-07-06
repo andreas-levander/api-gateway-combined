@@ -13,13 +13,20 @@ services:
       - "27017:27017"
     networks:
       - authserver
+  redis:
+    image: redis:7.0.2-alpine
+    restart: unless-stopped
+    networks:
+      - authserver
   authserver:
     build: ./authserver
     restart: unless-stopped
     depends_on:
+      - redis
       - mongodb
     environment:
       - MONGODB_URI=mongodb://testuser:password@mongodb:27017/authdb
+      - REDIS_URI=redis://@redis:6379
     volumes:
       - ./logs:/app/logs
     ports:
