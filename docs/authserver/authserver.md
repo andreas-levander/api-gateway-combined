@@ -1,14 +1,21 @@
-# Role Based Authentication Server
+# Role Based Authentication Server <!-- omit in toc -->
 
 Authentication server created with Node.js and MongoDB to be used for Role Based Authentication (RBAC)
 
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 
 - [Features](#features)
 - [Setup](#setup)
-- [API Endpoints](#API-Endpoints)
-  - [Public](#Public)
-  - [Private](#Private)
+  - [Using Docker](#using-docker)
+    - [Requirements](#requirements)
+  - [Without Docker using Npm](#without-docker-using-npm)
+    - [Requirements](#requirements-1)
+    - [Installation](#installation)
+- [Configuration](#configuration)
+  - [Environmental variables](#environmental-variables)
+- [API Endpoints](#api-endpoints)
+  - [Public](#public)
+  - [Private](#private)
 
 ## Features
 
@@ -34,10 +41,6 @@ docker compose up
 - Docker
 - Docker compose
 
-#### Configuration
-
-Todo
-
 ### Without Docker using Npm
 
 #### Requirements
@@ -52,6 +55,17 @@ Todo
 3. Install dependencies `cd authserver && npm install --omit=dev`
 4. Start server `npm start`
 
+## Configuration
+
+You can configure the authserver by setting environmental variables.
+
+### Environmental variables
+
+`PORT` default=4000  
+`MONGODB_URI` set your mongodb uri here  
+`USERNAME_MINLENGTH` minimum required username length default 5  
+`KEY_GEN_ALG` algorithm used for generating json web tokens. default=EdDSA
+
 ## API Endpoints
 
 ### Public
@@ -62,4 +76,4 @@ Todo
 ### Private
 
 - [Create User](/docs/authserver/endpoints/createuser.md) : `POST /v1/api/admin/createuser`
-- [Remove User](/docs/authserver/endpoints/removeuser.md) : `POST /v1/api/admin/removeuser` 
+- [Remove User](/docs/authserver/endpoints/removeuser.md) : `POST /v1/api/admin/removeuser`
