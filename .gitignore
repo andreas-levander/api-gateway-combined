@@ -6,6 +6,8 @@ node_modules
 
 .prettierignore
 
+redis/data
+
 .DS_Store
 
 added-users.json

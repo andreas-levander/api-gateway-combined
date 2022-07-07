@@ -1,6 +1,6 @@
 # Role Based Authentication Server <!-- omit in toc -->
 
-Authentication server created with Node.js and MongoDB to be used for Role Based Authentication (RBAC)
+Authentication server created with Node.js, MongoDB and Redis to be used for Role Based Authentication (RBAC)
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -47,6 +47,7 @@ docker compose up
 
 - npm & Node.js 16
 - Mongodb
+- Redis
 
 #### Installation
 
@@ -63,8 +64,11 @@ You can configure the authserver by setting environmental variables.
 
 `PORT` default=4000  
 `MONGODB_URI` set your mongodb uri here  
-`USERNAME_MINLENGTH` minimum required username length default 5  
-`KEY_GEN_ALG` algorithm used for generating json web tokens. default=EdDSA
+`USERNAME_MINLENGTH` minimum required username length. default=5  
+`KEY_GEN_ALG` algorithm used for generating json web tokens. default=EdDSA  
+`REDIS_URI` set your redis uri here  
+`KEY_TTL` how long the asymmetric keys used for encryption will last until renewed in seconds. default=2592000 (30 days)  
+`TOKEN_TTL` how long a issued token is valid in minutes. default=15
 
 ## API Endpoints
 

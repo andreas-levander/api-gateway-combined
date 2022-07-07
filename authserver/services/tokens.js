@@ -1,7 +1,7 @@
 import * as jose from "jose";
 import logger from "../utils/logger.js";
 import crypto from "crypto";
-import { KEY_GEN_ALG, KEY_TTL } from "../utils/config.js";
+import { KEY_GEN_ALG, KEY_TTL, TOKEN_TTL } from "../utils/config.js";
 import { redisClient } from "../app.js";
 
 const getRandomPrivateKey = async () => {
@@ -38,7 +38,7 @@ const generateKeyPair = async () => {
   publicKeyExport.kid = kid;
 
   await redisClient.set(`publicKey:${kid}`, JSON.stringify(publicKeyExport), {
-    EX: KEY_TTL,
+    EX: KEY_TTL + Math.floor(TOKEN_TTL / 60),
   });
   await redisClient.set(`privateKey:${kid}`, privateKeyExport, { EX: KEY_TTL });
 
@@ -54,7 +54,7 @@ const createToken = async ({ username, roles }) => {
     .setProtectedHeader({ alg: KEY_GEN_ALG, typ: "JWT", kid })
     .setIssuedAt()
     .setIssuer("authserver")
-    .setExpirationTime("10m")
+    .setExpirationTime(`${TOKEN_TTL}m`)
     .sign(privateKey);
 };
 

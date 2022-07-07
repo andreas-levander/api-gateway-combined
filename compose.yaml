@@ -16,6 +16,9 @@ services:
   redis:
     image: redis:7.0.2-alpine
     restart: unless-stopped
+    command: redis-server --bind redis --requirepass some-long-password --loglevel debug
+    volumes:
+      - ./authserver/redis/data:/data
     networks:
       - authserver
   authserver:
@@ -26,9 +29,9 @@ services:
       - mongodb
     environment:
       - MONGODB_URI=mongodb://testuser:password@mongodb:27017/authdb
-      - REDIS_URI=redis://@redis:6379
+      - REDIS_URI=redis://default:some-long-password@redis:6379
     volumes:
-      - ./logs:/app/logs
+      - ./authserver/logs:/app/logs
     ports:
       - 4000:4000
     networks:
