@@ -11,6 +11,15 @@
     "disabled": true
   },
   "extra_config": {
+    "auth/api-keys": {
+      "keys": [
+        {
+          "@description": "Test admin",
+          "key": "4d2c61e1-34c4-e96c-9456-15bd983c5019",
+          "roles": ["admin"]
+        }
+      ]
+    },
     "security/cors": {
       "allow_origins": ["*"],
       "expose_headers": ["Content-Length"],
@@ -63,6 +72,9 @@
           "cache": true,
           "disable_jwk_security": true,
           "roles_key": "roles",
+          "roles": ["admin"]
+        },
+        "auth/api-keys": {
           "roles": ["admin"]
         }
       }
