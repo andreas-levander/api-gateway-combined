@@ -1,6 +1,6 @@
 # Api Gateway <!-- omit in toc -->
 
-Krakend Api Gateway with authentication server
+Krakend Api Gateway with authentication server (optional)
 
 [Authserver docs](/docs/authserver/authserver.md)  
 [Krakend docs](https://www.krakend.io/docs/overview/)  
@@ -11,33 +11,28 @@ Krakend Api Gateway with authentication server
 
 - [Setup](#setup)
   - [Requirements](#requirements)
-  - [Setting up mongodb for authserver](#setting-up-mongodb-for-authserver)
 - [Configuration](#configuration)
   - [KrakenD](#krakend)
   - [Authserver](#authserver)
 
 ## Setup
 
-Quick start using docker
+Quick start KrakenD only using docker
 
 ```
 docker compose up
+```
+
+Quick start KrakenD+Authserver
+
+```
+docker compose -f compose-combined.yaml up
 ```
 
 ### Requirements
 
 - Docker
 - Docker compose
-
-### Setting up mongodb for authserver
-
-Initialization script location: `/mongodb/docker-entrypoint-initdb.d`
-
-When starting MongoDB for the first time it will run the initialization script if it is mounted in the mongodb container as done by default in the docker [compose](compose.yaml).
-
-You should configure the script with the username and password used by the authserver.
-
-Also you should change the root username and password in the [compose](compose.yaml).
 
 ## Configuration
 

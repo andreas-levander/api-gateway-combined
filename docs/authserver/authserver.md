@@ -11,6 +11,7 @@ Authentication server created with Node.js, MongoDB and Redis to be used for Rol
   - [Without Docker using Npm](#without-docker-using-npm)
     - [Requirements](#requirements-1)
     - [Installation](#installation)
+  - [Setting up mongodb for authserver](#setting-up-mongodb-for-authserver)
 - [Configuration](#configuration)
   - [Environmental variables](#environmental-variables)
 - [API Endpoints](#api-endpoints)
@@ -55,6 +56,16 @@ docker compose up
 2. Add your MONGODB_URI in an .env file in /authserver directory or in /authserver/utils/config.js
 3. Install dependencies `cd authserver && npm install --omit=dev`
 4. Start server `npm start`
+
+### Setting up mongodb for authserver
+
+Initialization script location: `/mongodb/docker-entrypoint-initdb.d`
+
+When starting MongoDB for the first time it will run the initialization script if it is mounted in the mongodb container as done by default in the docker [compose](compose.yaml).
+
+You should configure the script with the username and password used by the authserver.
+
+Also you should change the root username and password in the [compose](compose.yaml).
 
 ## Configuration
 

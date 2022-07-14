@@ -1,42 +1,4 @@
 services:
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
-    restart: unless-stopped
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-    volumes:
-      - ./mongodb/data:/data/db
-      - ./mongodb/docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-    ports:
-      - "27017:27017"
-    networks:
-      - authserver
-  redis:
-    image: redis:7.0.2-alpine
-    restart: unless-stopped
-    command: redis-server --bind redis --requirepass some-long-password --loglevel debug
-    volumes:
-      - ./authserver/redis/data:/data
-    networks:
-      - authserver
-  authserver:
-    build: ./authserver
-    restart: unless-stopped
-    depends_on:
-      - redis
-      - mongodb
-    environment:
-      - MONGODB_URI=mongodb://testuser:password@mongodb:27017/authdb
-      - REDIS_URI=redis://default:some-long-password@redis:6379
-    volumes:
-      - ./authserver/logs:/app/logs
-    ports:
-      - 4000:4000
-    networks:
-      - authserver
-      - apigateway
   krakend:
     image: devopsfaith/krakend
     depends_on:
@@ -82,7 +44,5 @@ services:
       - apigateway
 
 networks:
-  authserver:
-    driver: bridge
   apigateway:
     driver: bridge
