@@ -12,6 +12,7 @@ Authentication server created with Node.js, MongoDB and Redis to be used for Rol
     - [Requirements](#requirements-1)
     - [Installation](#installation)
   - [Setting up mongodb for authserver](#setting-up-mongodb-for-authserver)
+  - [Redis](#redis)
 - [Configuration](#configuration)
   - [Environmental variables](#environmental-variables)
 - [API Endpoints](#api-endpoints)
@@ -20,9 +21,10 @@ Authentication server created with Node.js, MongoDB and Redis to be used for Rol
 
 ## Features
 
-- Asymmetric key generation
+- Asymmetric key generation and rotation
 - Input validation
 - Password generation
+- Basic logging
 - Public key endpoint to let services verify token
 - Login Api to serve authorized users a Json Web Token
 - Admin Api to create/remove users
@@ -34,7 +36,7 @@ Authentication server created with Node.js, MongoDB and Redis to be used for Rol
 Quick start using docker
 
 ```
-docker compose up
+docker compose -f compose-combined.yaml up
 ```
 
 #### Requirements
@@ -54,18 +56,25 @@ docker compose up
 
 1. Setup your database
 2. Add your MONGODB_URI in an .env file in /authserver directory or in /authserver/utils/config.js
-3. Install dependencies `cd authserver && npm install --omit=dev`
-4. Start server `npm start`
+3. Add your REDIS_URI to .env file
+4. Install dependencies `cd authserver && npm install --omit=dev`
+5. Start server `npm start`
 
 ### Setting up mongodb for authserver
 
 Initialization script location: `/mongodb/docker-entrypoint-initdb.d`
 
-When starting MongoDB for the first time it will run the initialization script if it is mounted in the mongodb container as done by default in the docker [compose](compose.yaml).
+When starting MongoDB for the first time it will run the initialization script if it is mounted in the mongodb container as done by default in the docker [compose](/compose-combined.yaml).
 
 You should configure the script with the username and password used by the authserver.
 
-Also you should change the root username and password in the [compose](compose.yaml).
+Also you should change the root username and password in the [compose](/compose-combined.yaml).
+
+### Redis
+
+Redis is used to store the asymmetric keys in memory. You can also enable redis persistance storage to save them to disk unencrypted.  
+
+Restarting redis without persistance storage enabled will cause encryption keys to be regenerated which means all tokens in use will be invalidated.  
 
 ## Configuration
 
