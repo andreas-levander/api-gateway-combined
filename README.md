@@ -20,10 +20,18 @@ Krakend Api Gateway with authentication server (optional)
 Quick start KrakenD only using docker
 
 ```
+git clone <url of this project>
+```
+
+```
 docker compose up
 ```
 
 Quick start KrakenD+Authserver
+
+```
+git clone --recuse-submodules <url of this project>
+```
 
 ```
 docker compose -f compose-combined.yaml up
