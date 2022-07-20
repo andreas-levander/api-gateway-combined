@@ -30,7 +30,7 @@ docker compose up
 Quick start KrakenD+Authserver
 
 ```
-git clone --recuse-submodules <url of this project>
+git clone --recurse-submodules <url of this project>
 ```
 
 ```
