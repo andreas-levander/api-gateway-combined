@@ -2,7 +2,7 @@
 
 Krakend Api Gateway with authentication server (optional)
 
-[Authserver docs](https://github.com/andreas-levander/node-authserver)  
+[Authserver docs](https://github.com/andreas-levander/node-authserver#role-based-authentication-server-)  
 [Krakend docs](https://www.krakend.io/docs/overview/)
 
 ![Api-gateway diagram](docs/diagram/api-gateway-diagram.png)
