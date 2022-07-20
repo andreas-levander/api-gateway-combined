@@ -7,8 +7,8 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
-      - ./mongodb/data:/data/db # where to mount the mongodb data
-      - ./mongodb/docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./node-authserver/mongodb/data:/data/db # where to mount the mongodb data
+      - ./node-authserver/mongodb/docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     ports:
       - "27017:27017"
     networks:
@@ -18,11 +18,11 @@ services:
     restart: unless-stopped
     command: redis-server --bind redis --requirepass some-long-password --loglevel debug --save ""
     volumes:
-      - ./authserver/redis/data:/data
+      - ./node-authserver/redis/data:/data
     networks:
       - authserver
   authserver:
-    build: ./authserver # path to authserver Dockerfile
+    build: ./node-authserver # path to authserver Dockerfile
     restart: unless-stopped
     depends_on:
       - redis
@@ -31,7 +31,7 @@ services:
       - MONGODB_URI=mongodb://testuser:password@mongodb:27017/authdb
       - REDIS_URI=redis://default:some-long-password@redis:6379
     volumes:
-      - ./authserver/logs:/app/logs # where to put logs
+      - ./node-authserver/logs:/app/logs # where to put logs
     ports:
       - 4000:4000
     networks:
@@ -39,6 +39,7 @@ services:
       - apigateway
   krakend:
     image: devopsfaith/krakend
+    restart: unless-stopped
     depends_on:
       - influxdb
     ports:
@@ -51,6 +52,7 @@ services:
       - apigateway
   influxdb:
     image: influxdb:1.8
+    restart: unless-stopped
     environment:
       - "INFLUXDB_DB=krakend"
       - "INFLUXDB_USER=krakend-dev"

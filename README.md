@@ -2,8 +2,8 @@
 
 Krakend Api Gateway with authentication server (optional)
 
-[Authserver docs](/docs/authserver/authserver.md)  
-[Krakend docs](https://www.krakend.io/docs/overview/)  
+[Authserver docs](/node-authserver/README.md)  
+[Krakend docs](https://www.krakend.io/docs/overview/)
 
 ![Api-gateway diagram](docs/diagram/api-gateway-diagram.png)
 
@@ -48,6 +48,4 @@ If you do the recommended way you need to rebuild the image every time you chang
 
 ### Authserver
 
-[Configuring authserver](/docs/authserver/authserver.md#configuration)
-
-Todo
+[Configuring authserver](/node-authserver/README.md#configuration)

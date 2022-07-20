@@ -1,0 +1,3 @@
+[submodule "node-authserver"]
+	path = node-authserver
+	url = https://github.com/andreas-levander/node-authserver
