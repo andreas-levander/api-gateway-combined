@@ -12,7 +12,7 @@ services:
     networks:
       - apigateway
   influxdb:
-    image: influxdb:1.8
+    image: influxdb:1.8-alpine
     environment:
       - "INFLUXDB_DB=krakend"
       - "INFLUXDB_USER=krakend-dev"
